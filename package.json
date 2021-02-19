@@ -1,0 +1,38 @@
+{
+    "name": "git-pull",
+    "version": "1.0.0",
+    "description": "Pulls multiple nested repositories",
+    "main": "src/index.js",
+    "scripts": {
+        "lint": "eslint src/"
+    },
+    "bin": "./src/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Roger-Takeshita/git-pull.git"
+    },
+    "keywords": [
+        "git",
+        "github",
+        "pull",
+        "branch",
+        "repository",
+        "repositories",
+        "cli",
+        "command"
+    ],
+    "author": "Roger Takeshita",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Roger-Takeshita/git-pull/issues"
+    },
+    "homepage": "https://github.com/Roger-Takeshita/git-pull#readme",
+    "dependencies": {
+        "chalk": "^4.1.0"
+    },
+    "devDependencies": {
+        "eslint": "^7.20.0",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "eslint-plugin-import": "^2.22.1"
+    }
+}
