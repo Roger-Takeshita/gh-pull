@@ -1,19 +1,19 @@
 const chalk = require('chalk');
 const path = require('path');
-const { rgb, bgRgb } = require('./colors');
+const { rgb } = require('./colors');
 
-const printFolderStatus = (currentPath, basePath) => {
+const printFolderStatus = (currentPath, basePath, bgColor, fgColor) => {
     const folderName = path.relative(basePath, currentPath);
 
     if (folderName) {
         console.log(
-            chalk`{${rgb.white}.${bgRgb.redD}.bold  ${folderName} }{${rgb.red} }`,
+            chalk`{${rgb.WHT}.${bgColor}.bold  ${folderName} }{${fgColor} }`,
         );
     } else {
         console.log(
-            chalk`{${rgb.white}.${bgRgb.redD}.bold  ${path.basename(
+            chalk`{${rgb.WHT}.${bgColor}.bold  ${path.basename(
                 path.resolve(process.cwd()),
-            )} }{${rgb.red} }`,
+            )} }{${fgColor} }`,
         );
     }
 };

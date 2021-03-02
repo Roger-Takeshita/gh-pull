@@ -3,6 +3,7 @@
 const fs = require('fs');
 const { gitPull } = require('./git');
 const { printFolderStatus } = require('./print');
+const { rgb, rgbBG } = require('./colors');
 
 let counter = 0;
 
@@ -12,7 +13,11 @@ const checkCurrentFolder = async (currentPath, basePath, folderCount) => {
 
         if (pullStatus) {
             if (folderCount > 0) {
-                printFolderStatus(currentPath, basePath);
+                if (pullStatus.includes('Already up to date.')) {
+                    printFolderStatus(currentPath, basePath, rgbBG.GND, rgb.GN);
+                } else {
+                    printFolderStatus(currentPath, basePath, rgbBG.BLD, rgb.BL);
+                }
             }
 
             console.log();
