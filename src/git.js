@@ -16,7 +16,7 @@ const gitPull = async (currentPath, basePath, middleFolder = false) => {
             }
             const newStdout = stdout
                 .replace(/\| ([ \d]+) (\++)/gm, '| $1 \x1b[38;5;2m$2\x1b[0m')
-                .replace(/\| (.*[^-])(-+)/gm, '| $1\x1b[38;5;1m$2\x1b[0m')
+                .replace(/\| (.*[^-])(-+\n)/gm, '| $1\x1b[38;5;1m$2\x1b[0m')
                 .replace('(+)', '(\x1b[38;5;2m+\x1b[0m)')
                 .replace('(-)', '(\x1b[38;5;1m-\x1b[0m)');
             return newStdout;
