@@ -1,5 +1,5 @@
 {
-    "name": "git-pull",
+    "name": "gitpull",
     "version": "1.0.0",
     "description": "Pull multiple git repositories with a single command line",
     "main": "src/index.js",
@@ -9,7 +9,7 @@
     "bin": "./src/index.js",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Roger-Takeshita/git-pull.git"
+        "url": "git+https://github.com/Roger-Takeshita/gitpull.git"
     },
     "keywords": [
         "git",
@@ -24,9 +24,9 @@
     "author": "Roger Takeshita",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/Roger-Takeshita/git-pull/issues"
+        "url": "https://github.com/Roger-Takeshita/gitpull/issues"
     },
-    "homepage": "https://github.com/Roger-Takeshita/git-pull#readme",
+    "homepage": "https://github.com/Roger-Takeshita/gitpull#readme",
     "dependencies": {
         "chalk": "^4.1.0"
     },
