@@ -9,27 +9,33 @@ const gitPull = async (currentPath, basePath, middleFolder = false) => {
     if (fs.existsSync(`${currentPath}/.git`) || middleFolder) {
         try {
             process.chdir(currentPath);
-            const { stdout } = await exec('git pull');
+            const { stdout: modifications } = await exec('git pull');
+            const { stdout: branchLog } = await exec(
+                'git branch --show-current',
+            );
+            const branch = branchLog.replace(/\n/g, '').trim();
 
-            if (stdout.includes('Already up to date.')) {
-                return stdout;
+            if (modifications.includes('Already up to date.')) {
+                return { log: modifications.replace(/\n*$/, ''), branch };
             }
-            const newStdout = stdout
+            const formatModifications = modifications
                 .replace(/\| ([ \d]+) (\++)/gm, '| $1 \x1b[38;5;2m$2\x1b[0m')
                 .replace(/\| (.*[^-])(-+\n)/gm, '| $1\x1b[38;5;1m$2\x1b[0m')
                 .replace('(+)', '(\x1b[38;5;2m+\x1b[0m)')
-                .replace('(-)', '(\x1b[38;5;1m-\x1b[0m)');
-            return newStdout;
+                .replace('(-)', '(\x1b[38;5;1m-\x1b[0m)')
+                .replace(/\n*$/, '');
+            return { log: formatModifications, branch };
         } catch (error) {
-            if (!middleFolder) {
-                printFolderStatus(currentPath, basePath, rgbBG.RDD, rgb.RD);
-                console.log();
-                console.log(
-                    chalk`{${rgb.RDD}.bold ERROR:} {${
-                        rgb.RD
-                    } ${error.message.replace(/\t/gm, '\x1b[38;5;215m\t')}}`,
-                );
-            }
+            printFolderStatus(currentPath, basePath, rgbBG.RDD, rgb.RDD, '');
+            console.log();
+            console.log(
+                chalk`{${rgb.RDD}.bold ERROR:} {${
+                    rgb.RD
+                } ${error.message
+                    .replace(/\t/gm, '\x1b[38;5;215m\t')
+                    .replace(/\n*$/, '')}}`,
+            );
+            console.log();
         }
     }
 

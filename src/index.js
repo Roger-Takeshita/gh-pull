@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
+const chalk = require('chalk');
 const { gitPull } = require('./git');
 const { printFolderStatus } = require('./print');
 const { rgb, rgbBG } = require('./colors');
@@ -9,19 +10,36 @@ let counter = 0;
 
 const checkCurrentFolder = async (currentPath, basePath, folderCount) => {
     try {
-        const pullStatus = await gitPull(currentPath, basePath);
+        const folder = await gitPull(currentPath, basePath);
 
-        if (pullStatus) {
+        if (folder) {
             if (folderCount > 0) {
-                if (pullStatus.includes('Already up to date.')) {
-                    printFolderStatus(currentPath, basePath, rgbBG.GND, rgb.GN);
+                if (folder.log.includes('Already up to date.')) {
+                    printFolderStatus(
+                        currentPath,
+                        basePath,
+                        rgbBG.GND2,
+                        rgb.GND2,
+                        folder.branch,
+                        rgbBG.GN,
+                        rgb.GN,
+                    );
                 } else {
-                    printFolderStatus(currentPath, basePath, rgbBG.BLD, rgb.BL);
+                    printFolderStatus(
+                        currentPath,
+                        basePath,
+                        rgbBG.BLD,
+                        rgb.BLD,
+                        folder.branch,
+                        rgbBG.BL,
+                        rgb.BL,
+                    );
                 }
             }
 
             console.log();
-            console.log(pullStatus);
+            console.log(folder.log);
+            console.log();
             counter += 1;
         } else {
             const files = fs
@@ -45,7 +63,14 @@ const checkCurrentFolder = async (currentPath, basePath, folderCount) => {
             }
         }
     } catch (error) {
+        printFolderStatus(currentPath, basePath, rgbBG.RDD, rgb.RDD);
+        console.log();
         console.log(error);
+        // console.log(
+        //     chalk`{${rgb.RDD}.bold ERROR:} {${rgb.RD} ${error.message
+        //         .replace(/\t/gm, '\x1b[38;5;215m\t')
+        //         .replace(/\n*$/, '')}}`,
+        // );
     }
 };
 
@@ -54,13 +79,18 @@ const init = async () => {
 
     try {
         await checkCurrentFolder(process.cwd(), process.cwd(), 0);
-
         if (counter === 0) {
-            await gitPull(process.cwd(), true);
+            await gitPull(process.cwd(), process.cwd(), true);
             console.log();
         }
     } catch (error) {
-        console.log(error);
+        // printFolderStatus(currentPath, basePath, rgbBG.RDD, rgb.RDD);
+        console.log();
+        console.log(
+            chalk`{${rgb.RDD}.bold ERROR:} {${rgb.RD} ${error
+                .replace(/\t/gm, '\x1b[38;5;215m\t')
+                .replace(/\n*$/, '')}}`,
+        );
     }
 
     console.timeEnd('Done in');

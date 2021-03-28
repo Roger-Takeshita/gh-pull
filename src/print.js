@@ -2,18 +2,24 @@ const chalk = require('chalk');
 const path = require('path');
 const { rgb } = require('./colors');
 
-const printFolderStatus = (currentPath, basePath, bgColor, fgColor) => {
+const printFolderStatus = (
+    currentPath,
+    basePath,
+    bgColor,
+    fgColor,
+    branch,
+    branchBgColor,
+    branchFgColor,
+) => {
     const folderName = path.relative(basePath, currentPath);
 
-    if (folderName) {
+    if (folderName && branch) {
+        console.log(
+            chalk`{${rgb.WHT}.${bgColor}.bold  ${folderName} }{${branchBgColor}.${fgColor} }{${branchBgColor}.${rgb.BK}   ${branch} }{${branchFgColor} }`,
+        );
+    } else if (folderName && !branch) {
         console.log(
             chalk`{${rgb.WHT}.${bgColor}.bold  ${folderName} }{${fgColor} }`,
-        );
-    } else {
-        console.log(
-            chalk`{${rgb.WHT}.${bgColor}.bold  ${path.basename(
-                path.resolve(process.cwd()),
-            )} }{${fgColor} }`,
         );
     }
 };

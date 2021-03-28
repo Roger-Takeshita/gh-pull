@@ -7,14 +7,14 @@ Pull multiple git repositories with a single command line
 Install the package globally
 
 ```Bash
-  npm install -g gitpull
+  npm install -g gh-pull
 ```
 
 ## How to use it?
 
-On terminal go to the root of your nested repositories and run `gitpull`
+On terminal go to the root of your nested repositories and run `gh-pull`
 
-![](https://media.giphy.com/media/Oj1q4poL5eKoMEwtJ8/giphy.gif)
+![](https://media.giphy.com/media/y02ynnA5t0SlcAJ4v4/giphy.gif)
 
 |                Colors                | Description              |
 | :----------------------------------: | ------------------------ |
@@ -22,8 +22,8 @@ On terminal go to the root of your nested repositories and run `gitpull`
 | ![](https://i.imgur.com/rcyGDhy.jpg) | Already up to date       |
 | ![](https://i.imgur.com/JI5aw8l.jpg) | Something is wrong       |
 
-You can always create an alias of your choice instead of using `gitpull`, eg:
+You can always create an alias of your choice instead of using `gh-pull`, eg:
 
 ```Bash
-  alias pull="gitpull"
+  alias pull="gh-pull"
 ```
