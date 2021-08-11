@@ -66,11 +66,6 @@ const checkCurrentFolder = async (currentPath, basePath, folderCount) => {
         printFolderStatus(currentPath, basePath, rgbBG.RDD, rgb.RDD);
         console.log();
         console.log(error);
-        // console.log(
-        //     chalk`{${rgb.RDD}.bold ERROR:} {${rgb.RD} ${error.message
-        //         .replace(/\t/gm, '\x1b[38;5;215m\t')
-        //         .replace(/\n*$/, '')}}`,
-        // );
     }
 };
 
@@ -78,13 +73,17 @@ const init = async () => {
     console.time('Done in');
 
     try {
-        await checkCurrentFolder(process.cwd(), process.cwd(), 0);
+        const currentFolder = process.cwd();
+        await checkCurrentFolder(currentFolder, currentFolder, 0);
         if (counter === 0) {
-            await gitPull(process.cwd(), process.cwd(), true);
-            console.log();
+            const folder = await gitPull(currentFolder, currentFolder, true);
+            if (folder.log) {
+                console.log();
+                console.log(folder.log);
+                console.log();
+            }
         }
     } catch (error) {
-        // printFolderStatus(currentPath, basePath, rgbBG.RDD, rgb.RDD);
         console.log();
         console.log(
             chalk`{${rgb.RDD}.bold ERROR:} {${rgb.RD} ${error

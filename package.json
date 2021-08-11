@@ -1,6 +1,6 @@
 {
     "name": "gh-pull",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Pull multiple git repositories with a single command line",
     "main": "src/index.js",
     "scripts": {
